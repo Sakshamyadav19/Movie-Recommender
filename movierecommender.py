@@ -1,5 +1,7 @@
 import requests
 import json
+import os
+
 def recommend(movieName):
     baseurl='https://tastedive.com/api/similar'
     params_d = {}
@@ -11,6 +13,7 @@ def recommend(movieName):
     data=json.loads(resp.text)
     for x in range(0,5):
       print(data['Similar']['Results'][x]['Name'])
+      
 def info(name):
   url='http://www.omdbapi.com/'
   par={}
@@ -22,8 +25,20 @@ def info(name):
   print('Awards:',data['Awards'])
   print('Plot:',data['Plot'])
 
-movie=input('Enter Movie:')
-info(movie)
+os.system('clear')
+while True:
+    try:
+        movie=input('Enter Movie:')
+        info(movie)
+    except:
+        os.system('clear')
+        continue
+    else:
+        break
 print('===========')
 print('Recommedations')
-recommend(movie)
+try:
+    recommend(movie)
+except:
+    print("OOPS! Unable to find Recommendations for this Movie...")
+
